@@ -1,0 +1,41 @@
+# Zonas geográficas del Radar. Modificable SIN tocar código.
+# Prioridad de búsqueda:
+#   Zona 1 -> Cofradía de San Miguel
+#   Zona 2 -> resto de Cuautitlán Izcalli
+#   Zona 3 -> Estado de México (futuro)
+zones:
+  - name: "Cofradía de San Miguel"
+    municipality: "Cuautitlán Izcalli"
+    state: "Estado de México"
+    country: "México"
+    postal_code: "54715"
+    priority: 1
+    strategy: "radius"          # radius | grid | polygon
+    # ⚠️ POR VERIFICAR EN FASE 4 con geocoder oficial (valores aproximados de Fase 1)
+    center_lat: 19.683
+    center_lng: -99.215
+    radius_m: 1800
+    is_active: true
+
+  - name: "Cuautitlán Izcalli"
+    municipality: "Cuautitlán Izcalli"
+    state: "Estado de México"
+    country: "México"
+    priority: 2
+    strategy: "grid"          # se escanea por celdas (bbox + geohash)
+    cell_km: 1.5
+    # bounding box aproximado del municipio (min_lat, min_lng, max_lat, max_lng)
+    bbox: [19.60, -99.28, 19.72, -99.18]
+    is_active: true
+
+  - name: "Estado de México"
+    municipality: null
+    state: "Estado de México"
+    country: "México"
+    priority: 3
+    strategy: "grid"
+    cell_km: 3.0
+    bbox: [18.35, -100.60, 20.30, -98.60]
+    # Inactivo por defecto: cubrir todo el estado es un escaneo enorme; activarlo
+    # a propósito y con presupuesto de tiempo/cuota.
+    is_active: false

@@ -1,0 +1,29 @@
+# Pines con versión mínima (>=) en vez de exacta: el intérprete local es Python
+# 3.14, y las versiones antiguas fijas no traían wheels para él. Con >= pip elige
+# la versión reciente que sí tenga binario. Se pueden congelar con `pip freeze`
+# una vez estabilizado el entorno.
+
+# API
+fastapi>=0.115
+uvicorn[standard]>=0.34
+
+# Base de datos / ORM / migraciones / geo
+sqlalchemy>=2.0
+alembic>=1.14
+geoalchemy2>=0.16
+psycopg[binary]>=3.2,<4
+
+# Clientes externos / resiliencia (usados desde Fase 4)
+httpx>=0.28
+tenacity>=9.0
+
+# Deduplicación (Fase 5)
+rapidfuzz>=3.10
+
+# Config / utilidades
+pydantic-settings>=2.7
+python-dotenv>=1.0
+pyyaml>=6.0
+
+# Tests
+pytest>=8.3

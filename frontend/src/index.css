@@ -1,0 +1,207 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #05070a;
+  color: #e8edf4;
+  font-family: "Inter", system-ui, sans-serif;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ----------------------------- Utilidades HUD ------------------------------ */
+@layer components {
+  .glass {
+    background: linear-gradient(
+      160deg,
+      rgba(24, 30, 39, 0.72) 0%,
+      rgba(10, 14, 20, 0.66) 100%
+    );
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .glass-bright {
+    background: linear-gradient(
+      160deg,
+      rgba(245, 248, 255, 0.96),
+      rgba(220, 228, 240, 0.9)
+    );
+    color: #0a0e14;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .hud-label {
+    font-family: "Oxanium", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 10px;
+    color: #7d8aa0;
+  }
+
+  .hud-title {
+    font-family: "Oxanium", sans-serif;
+    letter-spacing: 0.04em;
+  }
+
+  .corner {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-color: rgba(125, 227, 255, 0.5);
+  }
+}
+
+/* ----------------------------- Marcadores ---------------------------------- */
+.marker {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: transform 0.2s ease;
+}
+.marker__dot {
+  position: absolute;
+  inset: 5px;
+  border-radius: 50%;
+  background: var(--mk, #8fa0b4);
+  box-shadow: 0 0 10px var(--mk, #8fa0b4), 0 0 2px #000;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+}
+.marker__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--mk, #8fa0b4);
+  opacity: 0.5;
+}
+.marker--jobs .marker__ring {
+  animation: mkpulse 2s ease-out infinite;
+}
+.marker:hover {
+  transform: translate(-50%, -50%) scale(1.35);
+  z-index: 10;
+}
+.marker--selected {
+  transform: translate(-50%, -50%) scale(1.5);
+  z-index: 20;
+}
+.marker--selected .marker__dot {
+  box-shadow: 0 0 18px var(--mk), 0 0 3px #000;
+}
+@keyframes mkpulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* ------------------------------- Clúster ----------------------------------- */
+.cluster {
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  cursor: pointer;
+  color: #eaf6ff;
+  font-family: "Oxanium", sans-serif;
+  font-weight: 700;
+  background: radial-gradient(circle at 50% 40%, rgba(125, 227, 255, 0.28), rgba(18, 22, 29, 0.85));
+  border: 1.5px solid rgba(125, 227, 255, 0.55);
+  box-shadow: 0 0 18px rgba(125, 227, 255, 0.25), inset 0 0 12px rgba(125, 227, 255, 0.15);
+  backdrop-filter: blur(3px);
+  transition: transform 0.15s ease;
+}
+.cluster:hover {
+  transform: translate(-50%, -50%) scale(1.12);
+}
+
+/* --------------------------- Neblina / scanlines --------------------------- */
+.fx-fog {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    rgba(5, 7, 10, 0) 40%,
+    rgba(5, 7, 10, 0.55) 82%,
+    rgba(5, 7, 10, 0.9) 100%
+  );
+}
+.fx-scan {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.02) 0px,
+    rgba(255, 255, 255, 0.02) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+/* ------------------------------- Scrollbars -------------------------------- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --------------------------- MapLibre (dark tweaks) ------------------------ */
+.maplibregl-map {
+  background: #05070a !important;
+}
+.maplibregl-ctrl-attrib {
+  background: rgba(0, 0, 0, 0.4) !important;
+  color: #6b7686 !important;
+  font-size: 9px !important;
+}
+.maplibregl-ctrl-attrib a {
+  color: #8fa0b4 !important;
+}
+.maplibregl-ctrl-group {
+  background: rgba(18, 22, 29, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.maplibregl-ctrl-group button {
+  filter: invert(1) hue-rotate(180deg) brightness(1.4);
+}

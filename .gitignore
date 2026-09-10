@@ -1,0 +1,24 @@
+# Secretos — NUNCA subir
+.env
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Frontend (Node)
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# Logs (mantener la carpeta, no su contenido)
+logs/*
+!logs/.gitkeep
+
+# Sistema
+.DS_Store
+Thumbs.db
